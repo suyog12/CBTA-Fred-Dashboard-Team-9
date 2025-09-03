@@ -2,36 +2,36 @@
 Mini Finance Dashboard (single API, single clean chart)
 
 Team: Team 9
-Members: [put names here]
+Members: Suyog Mainali • Luke Kovats • Bruce Marin • Venessa Broadrup
 Story: Do higher policy rates (Federal Funds Rate) line up with lower inflation after a lag?
 Data Source: Federal Reserve Economic Data (FRED). Series used: CPIAUCSL, FEDFUNDS.
 """
 
-import os, io, base64, calendar
-import pandas as pd
+import os, io, base64, calendar # for month-end day calc
+import pandas as pd # data handling
 
-# Use a non-GUI matplotlib backend (prevents Tkinter/thread errors on Windows)
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib # plotting
+matplotlib.use("Agg") # for non-GUI backend (server)
+import matplotlib.pyplot as plt #
+import seaborn as sns # for nicer plots
 
-from datetime import date
-from dotenv import load_dotenv
-from fredapi import Fred
-from dash import Dash, dcc, html, Input, Output, State, no_update, callback_context
-import dash_bootstrap_components as dbc
+from datetime import date # for current date
+from dotenv import load_dotenv # for .env file handling
+from fredapi import Fred # for FRED API
+from dash import Dash, dcc, html, Input, Output, State, no_update, callback_context # for Dash app
+import dash_bootstrap_components as dbc # for Bootstrap styles
 
 # ---------------- Setup FRED ----------------
-load_dotenv()
-fred = Fred(api_key=os.getenv("FRED_API_KEY"))   # put your key in .env
+load_dotenv() # take environment variables from .env
+fred = Fred(api_key=os.getenv("FRED_API_KEY"))   # initialize FRED API client
 
 # ---------------- Helpers ----------------
-def month_end_day(year: int, month: int) -> int:
-    return calendar.monthrange(year, month)[1]
+# month-end day helper (for year/month jumps)
+def month_end_day(year: int, month: int) -> int:  # return last day of month
+    return calendar.monthrange(year, month)[1]  # (1..28/29/30/31)   
 
-def set_dom_safely(year: int, month: int, day: int) -> pd.Timestamp:
-    return pd.Timestamp(year=year, month=month, day=min(day, month_end_day(year, month)))
+def set_dom_safely(year: int, month: int, day: int) -> pd.Timestamp: # set day-of-month safely
+    return pd.Timestamp(year=year, month=month, day=min(day, month_end_day(year, month))) # clamp day
 
 # fetch CPI and FEDFUNDS with a small buffer so transformations work even on short windows
 def get_chart_data(start, end):
