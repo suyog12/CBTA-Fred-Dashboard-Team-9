@@ -1,0 +1,49 @@
+:root{
+  --bg:#f8fafc; --panel:#fff; --ink:#111827; --muted:#6b7280; --border:#e5e7eb;
+}
+
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI", Inter, system-ui, -apple-system, Roboto, Arial, sans-serif;}
+
+.app-header{background:var(--panel);border-bottom:1px solid var(--border);
+  padding:12px 20px;display:flex;justify-content:space-between;align-items:center;}
+.team-line{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+.team-title{font-weight:700;font-size:20px;}
+.members{color:var(--muted);font-size:14px;}
+.api-badge{font-size:12px;background:#eef2ff;color:#3730a3;padding:6px 10px;border-radius:999px;}
+
+.dashboard-row{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 60px);}
+.sidebar{background:#f3f4f6;border-right:1px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px;}
+.export-btn{width:100%;border-radius:8px;padding:10px 12px;}
+.export-msg{font-size:12px;color:#065f46;}
+
+.main{padding:20px;display:flex;flex-direction:column;align-items:center;}
+.chart-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;width:100%;max-width:1000px;}
+.chart-title{font-weight:700;margin:4px 6px 12px;}
+.chart-img{width:100%;height:auto;object-fit:contain;border:1px solid var(--border);border-radius:8px;background:#fff;padding:8px;}
+
+.dates-block{ display:flex; flex-direction:column; gap:6px; }
+.date-label{ font-size:13px; color:#6b7280; margin-top:6px; }
+.quick-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.quick-btn{ padding:6px 10px; border-radius:8px; }
+
+/* Year/Month row next to pickers */
+.ym-row{ display:flex; gap:8px; margin-top:6px; }
+.ym-dd{ min-width: 110px; }
+
+/* Preset buttons */
+.quick-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.quick-btn{ border-radius:8px; padding:6px 10px; }
+.quick-btn.btn.btn-secondary{ background:#6c757d; border-color:#6c757d; } /* neutral active */
+
+.insight-card{margin-top:14px;width:100%;max-width:1000px;background:var(--panel);
+  border:1px solid var(--border);border-radius:12px;padding:12px 16px;}
+.insight-title{font-weight:700;margin-bottom:6px;}
+.insight-list{margin:0;padding-left:18px;}
+.insight-list li{margin:4px 0;line-height:1.35;}
+
+@media (max-width:900px){
+  .dashboard-row{grid-template-columns:1fr;}
+  .sidebar{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;flex-wrap:wrap;gap:10px;}
+  .chart-card,.insight-card{max-width:100%;}
+}
