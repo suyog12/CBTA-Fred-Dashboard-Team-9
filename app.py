@@ -2,7 +2,7 @@
 Mini Finance Dashboard (single API, single clean chart)
 
 Team: Team 9
-Members: Suyog Mainali • Luke Kovats • Bruce Marin • Venessa Broadrup
+Members: Suyog Mainali • Luke Kovats • Bryce Marin • Vanessa Broadrup
 Story: Do higher policy rates (Federal Funds Rate) line up with lower inflation after a lag?
 Data Source: Federal Reserve Economic Data (FRED). Series used: CPIAUCSL, FEDFUNDS.
 """
@@ -59,7 +59,8 @@ def get_chart_data(start, end):
     return df
 
 def render_png(df):
-    sns.set_theme(style="whitegrid")
+    custom = {"grid.linestyle": "dashed", "grid.color": "lightgray", "grid.alpha":0.75} # added for aesthetics - BM
+    sns.set_theme(style="whitegrid", rc=custom) # to use the aesthic changes - BM
     fig, ax = plt.subplots(figsize=(10, 6), dpi=140)
     df.plot(ax=ax)
 
@@ -103,7 +104,7 @@ app.layout = html.Div([
     html.Div(className="app-header", children=[
         html.Div(className="team-line", children=[
             html.Div("Team 9", className="team-title"),
-            html.Div("Members: Suyog Mainali • Luke Kovats • Bruce Marin • Venessa Broadrup", className="members"),
+            html.Div("Members: Suyog Mainali • Luke Kovats • Bryce Marin • Vanessa Broadrup", className="members"),
             html.Div("Data Source: Federal Reserve Economic Data (FRED)", className="api-badge"),
         ])
     ]),
@@ -288,7 +289,8 @@ def export_png(n, start, end):
     df = get_chart_data(start, end)
     if df.dropna(how="all").empty:
         return "Nothing to export."
-    sns.set_theme(style="whitegrid")
+    custom = {"grid.linestyle": "dashed", "grid.color": "lightgray", "grid.alpha":0.75} # added for aesthetics - BM
+    sns.set_theme(style="whitegrid", rc=custom) # to use the aesthic changes - BM
     fig, ax = plt.subplots(figsize=(10, 6), dpi=160)
     df.plot(ax=ax)
     ax.set_title("Inflation (Year-over-Year Percent) vs Federal Funds Rate (3-Month Moving Average)",
