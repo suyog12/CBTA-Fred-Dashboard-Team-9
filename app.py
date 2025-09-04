@@ -5,6 +5,7 @@ Team: Team 9
 Members: Suyog Mainali • Luke Kovats • Bryce Marin • Vanessa Broadrup
 Story: Do higher policy rates (Federal Funds Rate) line up with lower inflation after a lag?
 Data Source: Federal Reserve Economic Data (FRED). Series used: CPIAUCSL, FEDFUNDS.
+AI Disclosure: 
 """
 
 import os, io, base64, calendar # for month-end day calc
